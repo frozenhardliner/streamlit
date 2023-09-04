@@ -111,4 +111,4 @@ except subprocess.CalledProcessError:
 # Run the FastAPI application with Uvicorn on port 8080
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=1000, reload=False)
+    uvicorn.run(app, host="0.0.0.0", port=8501, reload=False)
