@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.ERROR)
 
 # Function to check if the username and password are valid
 def authenticate(username, password):
-    response = requests.post("http://localhost:1000/authenticate", json={"username": username, "password": password})
+    response = requests.post("http://localhost:8501/authenticate", json={"username": username, "password": password})
 
     return response.status_code == 200 and response.json().get("authenticated", False)
 
@@ -153,7 +153,7 @@ def second_page():
             status_placeholder.text("Processing data, wait please ⌛️")
 
             # Send the data to the backend for data processing
-            response = requests.post("http://localhost:1000/output", json=data)
+            response = requests.post("http://localhost:8501/output", json=data)
 
             if response.status_code == 200:
                 processed_data = response.json()  # Get the processed data from the response
