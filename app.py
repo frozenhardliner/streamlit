@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List, Optional
@@ -7,6 +7,7 @@ from ml import Forecasted_Algorithms
 import logging
 import os
 import subprocess
+import jwt, datetime
 
 # # Disable FastAPI's loggers
 # logging.getLogger("uvicorn").setLevel(logging.CRITICAL)
@@ -63,10 +64,21 @@ class DataRequest(BaseModel):
     user_prediction: str
     products_to_forecast: str
 
+SECRET_KEY = "qwerty12345678asdfg"
+def create_jwt_token(username: str) ->str:
+    payload = {
+        "sub": username,
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=50),
+    }
+    token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+    return token
+
+
 @app.post("/authenticate", tags=["Authentication"])
 async def authenticate(request: AuthRequest):
     if request.username in valid_credentials and request.password == valid_credentials[request.username]:
-        return {"authenticated": True, "token": "your_token_here"}  # Return a "token"
+        token = create_jwt_token(request:AuthRequest)
+        return {"authenticated": True, "token": token}  # Return a "token"
     else:
         raise HTTPException(status_code=401, detail="Invalid username or password")
 
