@@ -36,6 +36,8 @@ def authentication_page():
 
         # Check if the username and password are valid
         if st.button("Login"):
+            st.write(username)
+            st.write(password)
             if authenticate(username, password):
                 # Clear the session state cache
                 st.session_state.clear()
