@@ -36,15 +36,21 @@ def authentication_page():
 
         # Check if the username and password are valid
         if st.button("Login"):
-            if authenticate(username, password):
-                # Clear the session state cache
-                st.session_state.clear()
-                # Store authentication status in session_state
-                st.session_state["authenticated"] = True
-                st.session_state["page"] = "second"
-                st.experimental_rerun()  # Rerun the app to display the second page
-            else:
-                st.error("Invalid username or password")
+                 # Clear the session state cache
+                 st.session_state.clear()
+                 # Store authentication status in session_state
+                 st.session_state["authenticated"] = True
+                 st.session_state["page"] = "second"
+                 st.experimental_rerun()  # Rerun the app to display the second page
+            # if authenticate(username, password):
+            #     # Clear the session state cache
+            #     st.session_state.clear()
+            #     # Store authentication status in session_state
+            #     st.session_state["authenticated"] = True
+            #     st.session_state["page"] = "second"
+            #     st.experimental_rerun()  # Rerun the app to display the second page
+            # else:
+            #     st.error("Invalid username or password")
 
 # Page function for the second page
 def second_page():
